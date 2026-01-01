@@ -37,3 +37,74 @@ Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, e
 let responseJson = pm.response.json();
 let tokenSplit = responseJson.authorization.split(' ');
 pm.environment.set("AcessToken", tokenSplit[1]);
+
+markdown
+
+## 📁 Estrutura da Collection
+
+ServeRest/
+├── Login
+│   └── POST Login
+│
+├── Usuários
+│   ├── GET Listar todos
+│   ├── POST Cadastrar usuário (com dados aleatórios)
+│   ├── GET Buscar por ID
+│   ├── PUT Editar usuário
+│   └── DELETE Deletar usuário
+│
+├── Produtos
+│   ├── GET Listar produtos
+│   ├── POST Cadastrar produto (com nome aleatório)
+│   ├── GET Buscar produto por ID (usa ID dinâmico)
+│   ├── PUT Editar produto
+│   └── DELETE Deletar produto (com verificação de mensagem)
+│
+└── Carrinhos
+    ├── GET Listar carrinhos
+    ├── POST Cadastrar carrinho
+    ├── GET Buscar carrinho por ID
+    ├── DELETE Concluir compra
+    └── DELETE Cancelar compra
+
+## ⚙️ Variáveis Utilizadas
+
+### Environment
+
+| Variável     | Descrição                     |
+|--------------|-------------------------------|
+| baseURL      | URL base da API               |
+| AcessToken   | Token Bearer após login       |
+
+### Globais
+
+| Variável         | Descrição                                          |
+|------------------|----------------------------------------------------|
+| email / nome     | Gerados aleatoriamente no cadastro de usuário      |
+| password         | Senha fixa ou dinâmica                             |
+| RandomProduct    | Nome aleatório do produto                          |
+| NewProductID     | ID do produto criado (salvo automaticamente)       |
+
+## ✅ Testes Automatizados Implementados
+
+Todos os endpoints principais possuem testes para:
+
+- Status Code esperado
+- Estrutura e tipos do corpo da resposta (JSON)
+- Validação de mensagens de sucesso/erro
+- Content-Type correto
+- Tempo de resposta (< 200ms em alguns casos)
+- Validação condicional (ex: salva ID apenas se 201)
+- Limpeza de dados (delete após create)
+
+**Exemplo no DELETE de produto:**
+
+```javascript
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Registro excluído com sucesso", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.eql("Registro excluído com sucesso");
+});
