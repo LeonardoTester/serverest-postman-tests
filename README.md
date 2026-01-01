@@ -22,28 +22,16 @@ Aplicar testes automatizados em uma API REST para validar:
 
 A API base é configurada no Environment do Postman:
 
-|
- Variável   
-|
- Valor                     
-|
-|
-------------
-|
----------------------------
-|
-|
-`baseURL`
-|
-`https://serverest.dev`
-|
+| Variável  | Valor                   |
+|-----------|-------------------------|
+| baseURL   | https://serverest.dev   |
 
 ## 🔐 Autenticação
 
-Após o login, o token é automaticamente extraído e armazenado na variável de ambiente `AcessToken`.  
+Após o login, o token é automaticamente extraído e armazenado na variável de ambiente **AcessToken**.  
 Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, etc.).
 
-**Script de extração (na aba Tests do Login):**
+**Script de extração (aba Tests do Login):**
 
 ```javascript
 let responseJson = pm.response.json();
