@@ -109,3 +109,34 @@ pm.test("Registro excluído com sucesso", function () {
     var jsonData = pm.response.json();
     pm.expect(jsonData.message).to.eql("Registro excluído com sucesso");
 });
+
+## 🚀 Como Executar a Collection
+
+1. Abra o **Postman**
+2. Clique em **Import**
+3. Importe os arquivos do repositório:
+   - `Collection - ServeRest.postman_collection.json`
+   - `Serverest Dev.postman_environment.json`
+   - `workspace.postman_globals.json`
+4. Selecione o environment **Serverest Dev**
+5. Defina `baseURL` como `https://serverest.dev` (se necessário)
+6. Execute via **Collection Runner** → Todos os testes devem passar em verde! 🎉
+
+## 💻 Tecnologias Utilizadas
+
+- Postman
+- JavaScript (scripts Pre-request e Tests)
+- API REST
+- JSON
+
+## 🧠 Competências Demonstradas
+
+- Testes de API
+- Automação com Postman
+- Validação de contrato e regras de negócio
+- Manipulação dinâmica de dados e variáveis
+- Encadeamento de requests (fluxos automatizados)
+- Boas práticas de QA e limpeza de dados
+
+[![Postman](https://img.shields.io/badge/Postman-Coleção-orange?style=for-the-badge&logo=postman)](https://www.postman.com/)
+[![ServeRest API](https://img.shields.io/badge/API-ServeRest-blue?style=for-the-badge)](https://serverest.dev/)
