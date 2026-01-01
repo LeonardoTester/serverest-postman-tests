@@ -33,7 +33,7 @@ Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, e
 
 **Script de extração (aba Tests do Login):**
 
-javascript:
+```javascript
 
 let responseJson = pm.response.json();
 let tokenSplit = responseJson.authorization.split(' ');
