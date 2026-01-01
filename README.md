@@ -39,6 +39,7 @@ let responseJson = pm.response.json();
 let tokenSplit = responseJson.authorization.split(' ');
 pm.environment.set("AcessToken", tokenSplit[1]); 
 
+
 ## 📁 Estrutura da Collection
 
 ServeRest/
