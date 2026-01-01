@@ -100,7 +100,7 @@ Todos os endpoints principais possuem testes para:
 
 **Exemplo no DELETE de produto:**
 
-javascript:
+```javascript
 pm.test("Status code is 200", function () {
     pm.response.to.have.status(200);
 });
