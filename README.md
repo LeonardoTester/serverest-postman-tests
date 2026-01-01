@@ -29,6 +29,8 @@ A API base é configurada no Environment do Postman:
 {
   "key": "baseUrl",
   "value": "https://serverest.dev"
+}
+```
 
   ## 🔐 Autenticação
 
