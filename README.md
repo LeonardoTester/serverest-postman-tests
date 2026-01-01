@@ -36,6 +36,7 @@ Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, e
 
 
 ## 📁 Estrutura da Collection
+```
 ServeRest/
 ├── Login
 │   └── POST Login
@@ -60,6 +61,9 @@ ServeRest/
     ├── GET Buscar carrinho por ID
     ├── DELETE Concluir compra
     └── DELETE Cancelar compra
+```
+
+--- 
 
 ## ⚙️ Variáveis Utilizadas
 
