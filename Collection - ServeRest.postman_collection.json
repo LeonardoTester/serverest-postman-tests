@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "71f6e8f3-81a5-471b-ab9b-48ebfeb48065",
+		"name": "Collection - ServeRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50863990",
+		"_collection_link": "https://leonardonsser-8364792.postman.co/workspace/leonardo's-Workspace~471f38fa-9b77-4ce1-8668-6d541177fcb8/collection/50863990-71f6e8f3-81a5-471b-ab9b-48ebfeb48065?action=share&source=collection_link&creator=50863990"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/** \r",
+									" 1 - Responsy Body: contains string\r",
+									"     pm.expect(pm.response.text())\r",
+									"}); \r",
+									"**/\r",
+									"// console.log(pm.response.json())  Veridicar o que tem dentro de pm.response com JSON\r",
+									"\r",
+									"let responseJson = pm.response.json() // Precisa retornar apenas o código do Token\r",
+									"// console.log(responseJson['authorization']) \r",
+									"let tokenSplit = responseJson['authorization'].split(' ') // quebra as arrays\r",
+									"// console.log(tokenSplit[1]) // verifica\r",
+									"// TokenSplit[1]\r",
+									"pm.environment.set(\"AcessToken\", tokenSplit[1]) // salva o token no ambiente\r",
+									"\r",
+									"// Tests: Extrai o token da resposta do login\r",
+									"// Pega o campo \"authorization\" (ex: \"Bearer xyz123\"), faz split no espaço\r",
+									"// e salva só a parte do token na variável de ambiente AcessToken"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AcessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\":  \"{{email}}\",\r\n   \"password\": \"{{password}}\"\r\n }\r\n\r\n\r\n // Login",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Alterar usuário",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n   \"nome\": \"leonardo\",\r\n   \"email\": \"leo@qa.com\",\r\n   \"password\": \"novoteste\",\r\n   \"administrador\": \"true\"\r\n }\r\n\r\n\r\n // Alterei a senha",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/usuarios/IaL88ZYoGgLgLHun",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"usuarios",
+								"IaL88ZYoGgLgLHun"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "IaL88ZYoGgLgLHun",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar usuário",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/usuarios/IaL88ZYoGgLgLHun",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"usuarios",
+								"IaL88ZYoGgLgLHun"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de usuário",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomNumber = Math.floor(Math.random() * 9000) // Gera um número aleatório entre 0 e 1\r",
+									"const randomName = `User Number ${randomNumber}` // Cria o nome com o número aleatório\r",
+									"const randomEmail = `name.${randomNumber}@qa.com`\r",
+									"\r",
+									"pm.globals.set('email', randomEmail) // Salva o nome gerado no Global Variable UserID\r",
+									"pm.globals.set('nome', randomName) // Salva o nome gerado no Global Variable nome\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"{{nome}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"teste\",\r\n    \"administrador\": \"true\"\r\n}\r\n\r\n\r\n // Cadastro de usuário",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/usuarios",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar usuário único",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Pesquisa por ID de usuário",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/usuarios/IaL88ZYoGgLgLHun",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"usuarios",
+								"IaL88ZYoGgLgLHun"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos usuários",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Pesquisando usuário por filtro",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/usuarios?=Fulano",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "Fulano"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Buscar Produto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Listagem de produtos",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/produtos",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca produto por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://serverest.dev/produtos/{{NewProductID}}",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"produtos",
+								"{{NewProductID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar produtos",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/** const userRegistrationReq = {\r",
+									"    url: pm.environment.get('baseURL') + '/usuarios',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            nome: randomName,\r",
+									"            email: randomEmail,\r",
+									"            password: pm.globals.get('password'),\r",
+									"            administrador: \"true\"  // Corrigido: trocado \"administrator\" por \"administrador\"\r",
+									"\r",
+									"        })\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.sendRequest(userRegistrationReq, function (err, response) {\r",
+									"    let resJson = response.json();\r",
+									"    // console.log(resJson)\r",
+									"    pm.expect(response.code).to.eql(201)\r",
+									"    console.log(resJson)\r",
+									"    pm.globals.set('UserID', resJson._id) // Salva o ID do usuário na variável global\r",
+									"\r",
+									"\r",
+									"});\r",
+									"\r",
+									"**/\r",
+									"\r",
+									"\r",
+									"const loginRequest = {\r",
+									"    url: pm.environment.get('baseURL') + '/login',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: pm.globals.get('email'),\r",
+									"            password: pm.globals.get('password')\r",
+									"        })\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.sendRequest(loginRequest, (err, response) => {\r",
+									"    let resJson = response.json();\r",
+									"    // console.log(resJson);\r",
+									"    let tokensplit = resJson['authorization'].split(' ')\r",
+									"    pm.environment.set('AccessToken', tokensplit[1]);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.globals.set(\"RandomProduct\", `Product ${Math.random()}`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Converte a resposta para JSON \r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"// Teste: verifica se o status code é 201 Created\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"// Se o cadastro do produto deu sucesso, salva o _id na global\r",
+									"if (pm.response.code === 201) {\r",
+									"    pm.globals.set(\"NewProductID\", responseJson._id);\r",
+									"    console.log(\"ID do produto salvo na global NewProductID:\", responseJson._id);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AcessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"{{RandomProduct}}\",\r\n  \"preco\": 70,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 10\r\n}\r\n\r\n// Cadastrei produto",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/produtos",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Registro excluído com sucesso\", function () {\r",
+									"    var responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.message).to.eql(\"Registro excluído com sucesso\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AcessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/produtos/{{NewProductID}}",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"produtos",
+								"{{NewProductID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar produto",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/id",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carrinho",
+			"item": [
+				{
+					"name": "Listar carrinhos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/carrinhos",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar carrinho por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/carrinhos/",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"carrinhos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar carrinho",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"produtos\": [\r\n    {\r\n      \"idProduto\": \"BeeJh5lz3k6kSIzA\",\r\n      \"quantidade\": 1\r\n    },\r\n    {\r\n      \"idProduto\": \"YaeJ455lz3k6kSIzA\",\r\n      \"quantidade\": 3\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serverest.dev/carrinhos",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finzalizar carrinho",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/carrinhos/concluir-compra",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"carrinhos",
+								"concluir-compra"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar compra",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://serverest.dev/carrinhos/cancelar-compra",
+							"protocol": "https",
+							"host": [
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"carrinhos",
+								"cancelar-compra"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
