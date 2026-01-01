@@ -5,6 +5,9 @@ Este projeto contém uma coleção do Postman criada para testar a API pública 
 
 O foco está em **testes automatizados de API**, validação de contrato, regras de negócio e performance, demonstrando minhas habilidades como **QA Engineer**.
 
+[![Postman](https://img.shields.io/badge/Postman-Coleção-orange?style=for-the-badge&logo=postman)](https://www.postman.com/)
+[![ServeRest API](https://img.shields.io/badge/API-ServeRest-blue?style=for-the-badge)](https://serverest.dev/)
+
 ## 🎯 Objetivo
 
 Aplicar testes automatizados em uma API REST para validar:
@@ -138,5 +141,3 @@ pm.test("Registro excluído com sucesso", function () {
 - Encadeamento de requests (fluxos automatizados)
 - Boas práticas de QA e limpeza de dados
 
-[![Postman](https://img.shields.io/badge/Postman-Coleção-orange?style=for-the-badge&logo=postman)](https://www.postman.com/)
-[![ServeRest API](https://img.shields.io/badge/API-ServeRest-blue?style=for-the-badge)](https://serverest.dev/)
