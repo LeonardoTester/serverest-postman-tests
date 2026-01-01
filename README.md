@@ -25,9 +25,22 @@ Aplicar testes automatizados em uma API REST para validar:
 
 A API base é configurada no Environment do Postman:
 
-| Variável  | Valor                   |
-|-----------|-------------------------|
-| baseURL   | https://serverest.dev   |
+```json
+{
+  "key": "baseUrl",
+  "value": "https://serverest.dev"
+
+  ## 🔐 Autenticação
+
+Após o login, o token é automaticamente armazenado em uma variável de ambiente:
+```
+{{userToken}}
+```
+
+| Variável        | Descrição             |
+| --------------- | --------------------- |
+| `{{baseUrl}}`   | URL base da API       |
+| `{{userToken}}` | Token de autenticação |
 
 ## 🔐 Autenticação
 
