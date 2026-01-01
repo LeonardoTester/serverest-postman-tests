@@ -33,12 +33,11 @@ Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, e
 
 **Script de extração (aba Tests do Login):**
 
-```javascript
+javascript:
+
 let responseJson = pm.response.json();
 let tokenSplit = responseJson.authorization.split(' ');
-pm.environment.set("AcessToken", tokenSplit[1]);
-
-markdown
+pm.environment.set("AcessToken", tokenSplit[1]); 
 
 ## 📁 Estrutura da Collection
 
@@ -66,6 +65,7 @@ ServeRest/
     ├── GET Buscar carrinho por ID
     ├── DELETE Concluir compra
     └── DELETE Cancelar compra
+
 
 ## ⚙️ Variáveis Utilizadas
 
@@ -99,7 +99,7 @@ Todos os endpoints principais possuem testes para:
 
 **Exemplo no DELETE de produto:**
 
-```javascript
+javascript:
 pm.test("Status code is 200", function () {
     pm.response.to.have.status(200);
 });
