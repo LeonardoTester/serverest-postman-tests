@@ -34,14 +34,6 @@ A API base é configurada no Environment do Postman:
 Após o login, o token é automaticamente extraído e armazenado na variável de ambiente **AcessToken**.  
 Ele é usado nos endpoints protegidos (criar produto, editar/excluir usuário, etc.).
 
-**Script de extração (aba Tests do Login):**
-
-```javascript
-
-let responseJson = pm.response.json();
-let tokenSplit = responseJson.authorization.split(' ');
-pm.environment.set("AcessToken", tokenSplit[1]); 
-
 
 ## 📁 Estrutura da Collection
 
@@ -103,15 +95,6 @@ Todos os endpoints principais possuem testes para:
 
 **Exemplo no DELETE de produto:**
 
-```javascript
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
-
-pm.test("Registro excluído com sucesso", function () {
-    var jsonData = pm.response.json();
-    pm.expect(jsonData.message).to.eql("Registro excluído com sucesso");
-});
 
 ## 🚀 Como Executar a Collection
 
